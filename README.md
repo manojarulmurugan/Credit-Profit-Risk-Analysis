@@ -48,7 +48,7 @@ This project predicts credit risk using machine learning, enabling financial ins
 ![Class Imbalance](reports/images/class_imbalance.png)
 
 **After Bootsrapping Method:**
-![Balanced Data](reports/images/bootsrap_method.png)
+![Balanced Data](reports/images/bootstrap_method.png)
 
 ### Stacking Model
 ![Stacking Model](reports/images/stacking_model.png)
@@ -57,4 +57,4 @@ This project predicts credit risk using machine learning, enabling financial ins
 ![Accuracies](reports/images/accuracies.png)
 
 ### Capstone Project Poster
-![Poster](reports/Poster_CPRA.png)
+![Poster](reports/CPRA_poster.png)
