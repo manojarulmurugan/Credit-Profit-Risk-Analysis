@@ -15,7 +15,8 @@ help:
 	@echo "  lgd          Train + evaluate the two-stage LGD model"
 	@echo "  survival     Fit discrete-time survival hazard + IFRS 9 ECL summary"
 	@echo "  monitor      Compute PSI drift (feature + PD score) across vintages"
-	@echo "  app          Launch the Streamlit decision demo"
+	@echo "  app          Launch the Streamlit decision demo (original scorer)"
+	@echo "  demo         Launch the LoanAlpha demo (Portfolio Explorer + Scorer + Evidence)"
 	@echo "  api          Launch the FastAPI scoring service (uvicorn)"
 	@echo "  docker-build Build the API container image"
 	@echo "  docker-run   Run the API container (mounts models/)"
@@ -61,6 +62,9 @@ monitor:
 
 app:
 	$(PY) -m streamlit run src/app.py
+
+demo:
+	$(PY) -m streamlit run demo/Investor_Demo.py
 
 api:
 	$(PY) -m uvicorn src.api:app --host 0.0.0.0 --port 8000

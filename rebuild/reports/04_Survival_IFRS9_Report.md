@@ -5,7 +5,7 @@
 
 ## Executive Summary
 
-The headline PD model produces a single static probability ("will this loan ever default?"). IFRS 9 provisioning requires a **term structure** of default risk — the probability of default in each future month — to separate **12-month** from **lifetime** Expected Credit Loss (ECL). This phase builds that term structure with discrete-time survival analysis and uses it for IFRS 9 staging and ECL.
+The headline PD model produces a single static probability ("will this loan ever default?"). IFRS 9 provisioning requires a **term structure** of default risk - the probability of default in each future month - to separate **12-month** from **lifetime** Expected Credit Loss (ECL). This phase builds that term structure with discrete-time survival analysis and uses it for IFRS 9 staging and ECL.
 
 | Output | Value (OOT scoring sample) |
 |---|---|
@@ -22,8 +22,8 @@ The key result: **12-month ECL is roughly one-third of lifetime ECL**, which is 
 
 The Notebook 02 model answers a binary lifetime question. IFRS 9 needs two distinct loss allowances:
 
-- **12-month ECL** — losses from defaults expected in the next 12 months (Stage 1).
-- **Lifetime ECL** — losses over the entire remaining life (Stage 2 and Stage 3).
+- **12-month ECL** - losses from defaults expected in the next 12 months (Stage 1).
+- **Lifetime ECL** - losses over the entire remaining life (Stage 2 and Stage 3).
 
 Both require knowing *when* defaults happen, not just *whether*. That is a survival-analysis question.
 
@@ -33,7 +33,7 @@ Both require knowing *when* defaults happen, not just *whether*. That is a survi
 
 ### Time-to-event construction
 
-Each loan is expanded into the **person-period** (long) format — one row per month observed:
+Each loan is expanded into the **person-period** (long) format - one row per month observed:
 
 - Observed duration = months from `issue_d` to `last_pymnt_d`, capped at the contractual term.
 - A charged-off loan contributes `event = 0` for every survived month and `event = 1` in its default month.
@@ -47,7 +47,7 @@ A logistic regression models the monthly hazard:
 
 $$h(t) = P(\text{default in month } t \mid \text{survived to } t) = \sigma(\beta_0 + \beta_1 t + \beta_2 t^2 + \beta_3 \ln t + \mathbf{x}^\top \boldsymbol{\gamma})$$
 
-The time terms (`period`, `period²`, `log period`) capture the **baseline hazard** shape; the origination features `x` shift each loan's hazard up or down. Crucially, **no class rebalancing** is applied — the hazard must reflect the true, low (~0.8%) monthly default probability. Rebalancing would recalibrate the rare per-period event toward 50% and saturate cumulative PD toward 1.0.
+The time terms (`period`, `period²`, `log period`) capture the **baseline hazard** shape; the origination features `x` shift each loan's hazard up or down. Crucially, **no class rebalancing** is applied - the hazard must reflect the true, low (~0.8%) monthly default probability. Rebalancing would recalibrate the rare per-period event toward 50% and saturate cumulative PD toward 1.0.
 
 ### From hazard to term structure
 
@@ -69,7 +69,7 @@ Empirical monthly default risk is low at origination, rises to a peak around mon
 
 ## 4. 12-Month PD vs Lifetime PD
 
-- Mean lifetime PD (~0.29) lands close to the realized default rate (~0.24) — a basic calibration sanity check.
+- Mean lifetime PD (~0.29) lands close to the realized default rate (~0.24) - a basic calibration sanity check.
 - Mean 12-month PD (~0.07) is far lower: most defaults occur after the first year, so the 12-month window captures only a fraction of lifetime risk.
 - Lifetime PD ≥ 12-month PD for every loan by construction (more time, more default opportunity).
 
@@ -85,7 +85,7 @@ The gap between the two is the economic content IFRS 9 monetizes through staging
 | **Stage 2** | Significant Increase in Credit Risk (SICR) since origination | Lifetime ECL |
 | **Stage 3** | Credit-impaired (defaulted) | Lifetime ECL, PD = 1 |
 
-**SICR rule used here (simplified proxy):** a loan is flagged Stage 2 when its lifetime PD is both high in absolute terms (≥ 0.15) and well above the portfolio median (≥ 3× median). A production SICR test re-measures each loan's lifetime PD over time against its origination expectation using behavioural data; with a single snapshot we approximate that with a relative + absolute threshold and label it explicitly as a proxy.
+**SICR rule used here (simplified proxy):** a loan is flagged Stage 2 when its lifetime PD is both high in absolute terms (≥ 0.15) and well above the portfolio median (≥ 3× median). A production SICR test re-measures each loan's lifetime PD over time against its origination expectation using behavioural data; with a single snapshot I approximate that with a relative + absolute threshold and label it explicitly as a proxy.
 
 ---
 
@@ -98,7 +98,7 @@ $$\text{ECL} = \sum_t \text{marginalPD}(t) \times \text{LGD} \times \text{EAD} \
 - **r** = the loan's own interest rate (discounting future losses to present value).
 - Capping the sum at 12 months gives 12-month ECL; summing over the full term gives lifetime ECL.
 
-**Result: 12-month ECL ≈ 29% of lifetime ECL.** When a loan migrates Stage 1 → Stage 2, the lender must immediately recognize the *full lifetime* allowance — a step change of roughly 3.5× in provisions for that exposure. This staging cliff is the central mechanic IFRS 9 introduced, and it is only computable with the survival term structure.
+**Result: 12-month ECL ≈ 29% of lifetime ECL.** When a loan migrates Stage 1 → Stage 2, the lender must immediately recognize the *full lifetime* allowance - a step change of roughly 3.5× in provisions for that exposure. This staging cliff is the central mechanic IFRS 9 introduced, and it is only computable with the survival term structure.
 
 ---
 
@@ -108,7 +108,7 @@ This phase elevates the project from a generic binary classifier to a credit-ris
 
 - Produces a **PD term structure**, not a single number.
 - Implements **IFRS 9 staging** with an explicit, documented SICR proxy.
-- Computes **12-month and lifetime ECL** with discounting — the actual numbers a provisioning team books.
+- Computes **12-month and lifetime ECL** with discounting - the actual numbers a provisioning team books.
 
 ---
 

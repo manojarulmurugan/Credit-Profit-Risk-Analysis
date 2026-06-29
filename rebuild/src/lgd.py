@@ -3,7 +3,7 @@
 Replaces the single portfolio-average LGD constant with a per-loan LGD prediction
 driven by origination-time features. Realized LGD on defaulted loans is bimodal
 (a spike near total loss plus a spread of partial recoveries), so a single mean
-is a poor summary. We model it with a two-stage mixture:
+is a poor summary. I model it with a two-stage mixture:
 
     Stage 1 (cure / total-loss classifier): P(near-total loss) for the loan.
     Stage 2 (severity regressor):           expected LGD given a partial recovery.

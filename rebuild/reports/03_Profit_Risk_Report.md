@@ -1,7 +1,7 @@
 # Profit-Risk Analysis Report
-## Lending Club — From Probability of Default to Portfolio Profit Optimization
+## Lending Club - From Probability of Default to Portfolio Profit Optimization
 
-> **Validation basis: out-of-time (OOT).** The PD model is trained on vintages through **2014** and the profit backtest runs on **2015 originations** (**85,452 loans** in the headline development run: 300K stratified sample from the resolved book) — the standard next-vintage holdout for a model built to score future applicants.
+> **Validation basis: out-of-time (OOT).** The PD model is trained on vintages through **2014** and the profit backtest runs on **2015 originations** (**85,452 loans** in the headline development run: 300K stratified sample from the resolved book) - the standard next-vintage holdout for a model built to score future applicants.
 
 ---
 
@@ -14,8 +14,8 @@ The probability of default model is a risk-ranking engine. This phase converts t
 | Metric | Value |
 |---|---|
 | Portfolio LGD (avg realized loss on defaults) | **0.59** |
-| Profit — approve everyone (no model) | **+$44.7M** |
-| Profit — model-optimal policy (PD ≤ 0.26) | **+$58.1M** |
+| Profit - approve everyone (no model) | **+$44.7M** |
+| Profit - model-optimal policy (PD ≤ 0.26) | **+$58.1M** |
 | **Value added by the model vs approve-all** | **+$13.4M** |
 | Optimal approval rate | **82.6%** |
 | Default rate under optimal policy | **15.7%** (vs 20.1% approve-all) |
@@ -26,11 +26,11 @@ Ranking by predicted PD and declining the riskiest ~17% of applicants adds **$13
 
 ## 1. The Problem This Phase Solves
 
-The PD model outputs one number per loan: `pd_score ∈ [0, 1]`. That alone doesn't decide a loan — the decision depends on the loan's economics (amount at stake, recovery if it defaults, interest if it pays). This phase provides the decision framework:
+The PD model outputs one number per loan: `pd_score ∈ [0, 1]`. That alone doesn't decide a loan - the decision depends on the loan's economics (amount at stake, recovery if it defaults, interest if it pays). This phase provides the decision framework:
 
 1. **Per-loan Expected Loss** (`EL = PD × LGD × EAD`)
-2. **Profit curve** — sweep the approval threshold against realized profit
-3. **WoE/IV scorecard** — regulatory-style feature validation
+2. **Profit curve** - sweep the approval threshold against realized profit
+3. **WoE/IV scorecard** - regulatory-style feature validation
 
 ---
 
@@ -38,9 +38,9 @@ The PD model outputs one number per loan: `pd_score ∈ [0, 1]`. That alone does
 
 $$\text{EL} = \underbrace{PD}_{\text{calibrated model}} \times \underbrace{LGD}_{\text{loss severity}} \times \underbrace{EAD}_{\text{funded\_amnt}}$$
 
-- **PD** — calibrated XGBoost output (isotonic; OOT AUC 0.704 on the scored hold-out).
-- **EAD** — `funded_amnt`, the dollars at risk.
-- **LGD** — **per-loan prediction** from the two-stage LGD model (cure + severity LightGBM), not a single constant.
+- **PD** - calibrated XGBoost output (isotonic; OOT AUC 0.704 on the scored hold-out).
+- **EAD** - `funded_amnt`, the dollars at risk.
+- **LGD** - **per-loan prediction** from the two-stage LGD model (cure + severity LightGBM), not a single constant.
 
 ---
 
@@ -50,7 +50,7 @@ The LGD is modeled per loan with a two-stage LightGBM model trained on training-
 
 | LGD model metric (OOT defaults) | Value |
 |---|---|
-| MAE — LGD model | **< portfolio constant baseline** |
+| MAE - LGD model | **< portfolio constant baseline** |
 | Approach | Cure probability × severity on charged-off loans |
 
 Per-loan LGD feeds the expected-loss layer; the **profit curve itself** uses **realized** cash (`total_pymnt − funded_amnt`) so the optimal threshold is an honest backtest on observed outcomes.
@@ -83,7 +83,7 @@ Sweeping the PD approval threshold (approve a loan when `pd_score ≤ t`) and su
 
 The curve rises from low approval rates, peaks near **83% approval**, then falls as high-PD loans that would still have been profitable are excluded. The model's PD ranking identifies which marginal applicants destroy portfolio profit.
 
-**Graph interpretation:** the blue line (total profit) climbs as more low-PD loans are included, peaks at the optimal cutoff, then declines when too many risky loans are added. The red line (default rate of approved) rises monotonically with approval rate — the art is finding the knee where profit is maximized before defaults dominate.
+**Graph interpretation:** the blue line (total profit) climbs as more low-PD loans are included, peaks at the optimal cutoff, then declines when too many risky loans are added. The red line (default rate of approved) rises monotonically with approval rate - the art is finding the knee where profit is maximized before defaults dominate.
 
 ---
 

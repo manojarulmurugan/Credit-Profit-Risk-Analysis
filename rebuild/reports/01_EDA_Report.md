@@ -1,4 +1,4 @@
-# EDA Report — Lending Club Credit Risk
+# EDA Report - Lending Club Credit Risk
 
 **Source:** `rebuild/notebooks/01_EDA_Preprocessing.ipynb`  
 **Sample:** 60,000-row stratified sample drawn from 1.31M resolved loans  
@@ -17,7 +17,7 @@
 | Portfolio default rate | **20.1%** |
 | Features in final model matrix | 22 |
 
-**Why are rows dropped?** Only "Fully Paid" and "Charged Off / Default" loans have known outcomes. 919K "Current", 21K "Late", and 9K "In Grace Period" loans are excluded because their final state is unknown — including them would introduce noise into the target variable.
+**Why are rows dropped?** Only "Fully Paid" and "Charged Off / Default" loans have known outcomes. 919K "Current", 21K "Late", and 9K "In Grace Period" loans are excluded because their final state is unknown - including them would introduce noise into the target variable.
 
 **Why ROC-AUC over accuracy:** Credit default is a minority-class problem (~20% bad). A model that predicts every applicant as "good" already scores ~80% accuracy, making accuracy uninformative for this task. ROC-AUC, KS statistic, and Gini are used as primary metrics.
 
@@ -25,7 +25,7 @@
 
 ## 2. Class Balance
 
-The dataset has a ~4:1 imbalance (80% good, 20% bad). This is addressed with SMOTE applied **inside training folds only** — never on the full dataset before splitting — ensuring the resampling step cannot influence test set evaluation.
+The dataset has a ~4:1 imbalance (80% good, 20% bad). This is addressed with SMOTE applied **inside training folds only** - never on the full dataset before splitting - ensuring the resampling step cannot influence test set evaluation.
 
 ---
 
@@ -94,7 +94,7 @@ The dataset has a ~4:1 imbalance (80% good, 20% bad). This is addressed with SMO
 
 ### 3a. Additional Categoricals
 
-**Verification Status — Counter-intuitive finding:**
+**Verification Status - Counter-intuitive finding:**
 
 | Status | Default Rate |
 |---|---|
@@ -102,10 +102,10 @@ The dataset has a ~4:1 imbalance (80% good, 20% bad). This is addressed with SMO
 | Source Verified | ~20.3% |
 | Not Verified | ~17.9% |
 
-"Verified" applicants default *more* than "Not Verified." This reflects a **selection-bias dynamic** — Lending Club verifies income specifically for applicants it flags as higher-risk. The feature is retained in the model, where it captures LC's risk-flagging behavior rather than raw income quality. Worth noting when presenting results to a non-technical audience.
+"Verified" applicants default *more* than "Not Verified." This reflects a **selection-bias dynamic** - Lending Club verifies income specifically for applicants it flags as higher-risk. The feature is retained in the model, where it captures LC's risk-flagging behavior rather than raw income quality. Worth noting when presenting results to a non-technical audience.
 
-**Employment Length — Weak predictor:**  
-Default rates range only from ~21.4% (<1 year) to ~18.1% (10+ years) — a 3pp spread across all categories. Mutual Information will rank this feature near the bottom; it will likely be dropped by SelectKBest in the pipeline.
+**Employment Length - Weak predictor:**  
+Default rates range only from ~21.4% (<1 year) to ~18.1% (10+ years) - a 3pp spread across all categories. Mutual Information will rank this feature near the bottom; it will likely be dropped by SelectKBest in the pipeline.
 
 **Application Type:** Joint applicants default less than individual applicants, likely because two incomes reduce repayment risk.
 
@@ -117,7 +117,7 @@ KDE plots (default vs non-default population) show degree of separation for each
 
 | Feature | Defaulter skew | Signal strength |
 |---|---|---|
-| `int_rate` | Higher rates → more defaults | Strong (excluded from model — encodes LC's risk) |
+| `int_rate` | Higher rates → more defaults | Strong (excluded from model - encodes LC's risk) |
 | `dti` | Higher DTI → more defaults | Strong |
 | `revol_util` | Higher utilization → more defaults | Moderate-Strong |
 | `annual_inc` | Lower income → more defaults | Moderate |
@@ -150,23 +150,23 @@ Binning exposes non-linear relationships that Pearson correlation misses.
 | 80–100% | ~28.3% |
 | >100% | ~33.1% |
 
-Both show clean monotonic step-ups — these are strong, well-behaved features for any classifier.
+Both show clean monotonic step-ups - these are strong, well-behaved features for any classifier.
 
 ---
 
 ### 3d. Pearson Correlation Heatmap
 
 Key findings:
-- **`loan_amnt` ↔ `installment`**: |r| ≈ 0.95 — near-perfect collinearity. The `CorrelationThreshold` transformer inside the pipeline drops one automatically at fit-time.
-- **`open_acc` ↔ `total_acc`**: |r| ≈ 0.68 — related but not redundant (total includes open). Both kept.
-- **Most other pairs**: |r| < 0.3 — the feature set is largely orthogonal, which is good for both linear and tree-based models.
+- **`loan_amnt` ↔ `installment`**: |r| ≈ 0.95 - near-perfect collinearity. The `CorrelationThreshold` transformer inside the pipeline drops one automatically at fit-time.
+- **`open_acc` ↔ `total_acc`**: |r| ≈ 0.68 - related but not redundant (total includes open). Both kept.
+- **Most other pairs**: |r| < 0.3 - the feature set is largely orthogonal, which is good for both linear and tree-based models.
 
 ---
 
 ### 3e. Cross-Feature Interaction Heatmaps
 
 **Grade × Term:**  
-The 60-month penalty is *not* uniform — it amplifies with risk tier.
+The 60-month penalty is *not* uniform - it amplifies with risk tier.
 
 | Grade | 36-month default rate | 60-month default rate | Δ |
 |---|---|---|---|
@@ -189,7 +189,7 @@ A Grade-G 60-month loan is essentially a coin flip. Tree-based models capture th
 | Q3 | ~18.7% |
 | Q4 (High) | ~15.1% |
 
-Clear gradient — Q1 borrowers default 10pp above Q4. Within grade tiers, income still independently modulates risk, justifying `annual_inc` as a standalone model feature.
+Clear gradient - Q1 borrowers default 10pp above Q4. Within grade tiers, income still independently modulates risk, justifying `annual_inc` as a standalone model feature.
 
 ---
 
@@ -228,7 +228,7 @@ More inquiries = more financial stress. 5+ inquiries → 33% default, 2× baseli
 
 ---
 
-### 3i. Bivariate Scatter — int_rate vs DTI
+### 3i. Bivariate Scatter - int_rate vs DTI
 
 A 2D view of the two strongest continuous signals. Defaulted loans cluster toward the **top-right** (high interest rate AND high DTI). The bottom-left quadrant (low rate, low DTI) is the safest lending zone. The overlap in the middle explains why these features alone achieve moderate but not perfect discrimination.
 
@@ -247,7 +247,7 @@ A 2D view of the two strongest continuous signals. Defaulted loans cluster towar
 | 8–10% | ~28.6% |
 | >10% | ~33.4% |
 
-**Key finding:** This engineered ratio is a stronger monotonic predictor than either `installment` or `annual_inc` alone. It directly captures **affordability burden** — whether the borrower can realistically service the loan from current income.  
+**Key finding:** This engineered ratio is a stronger monotonic predictor than either `installment` or `annual_inc` alone. It directly captures **affordability burden** - whether the borrower can realistically service the loan from current income.  
 **Recommendation:** Add this as an explicit feature in `features.py` for the next model iteration.
 
 ---
@@ -283,7 +283,7 @@ A 2D view of the two strongest continuous signals. Defaulted loans cluster towar
 | Major Purchase | 4.6% | 3.2% | Under-represented |
 | Other | 14.3% | 20.8% | **Over-represented** |
 
-**Finding:** Debt consolidation dominates default *volume* (~49%) simply because it dominates loan volume. Its *rate* is near average. Small business and "Other" are over-represented in defaults relative to their share of loans — that is where elevated rate risk concentrates.
+**Finding:** Debt consolidation dominates default *volume* (~49%) simply because it dominates loan volume. Its *rate* is near average. Small business and "Other" are over-represented in defaults relative to their share of loans - that is where elevated rate risk concentrates.
 
 ---
 
@@ -291,7 +291,7 @@ A 2D view of the two strongest continuous signals. Defaulted loans cluster towar
 
 | EDA Finding | Decision | Impact |
 |---|---|---|
-| Grade near-perfectly predictive | Excluded from model — builds independent borrower signals | High |
+| Grade near-perfectly predictive | Excluded from model - builds independent borrower signals | High |
 | Verification status reversal | Kept; documents it captures LC's risk-flagging behavior | Medium |
 | loan_amnt ↔ installment collinear | CorrelationThreshold in Pipeline auto-drops one | Medium |
 | Employment length near-flat | MI ranking will drop it; keep for now | Low |

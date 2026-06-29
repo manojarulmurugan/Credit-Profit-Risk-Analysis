@@ -1,7 +1,7 @@
 """Credit-risk evaluation metrics.
 
 Primary metrics: ROC-AUC, KS statistic, Gini coefficient, PR-AUC, and Brier
-score (calibration). Accuracy is included as a secondary metric — on an
+score (calibration). Accuracy is included as a secondary metric - on an
 imbalanced problem (~20% default rate) it is uninformative as a standalone
 number. ``text_report`` calls ``classification_report(y_true, y_pred)`` in the
 correct argument order.
@@ -71,7 +71,7 @@ def emp_credit_scoring(y_true, y_score, p0: float = None, p1: float = None,
     Faithful port of ``empCreditScoring`` (EMP R package / Banking-Analytics-Lab
     Python port): bimodal LGD with point masses ``p0`` at full recovery and ``p1``
     at total loss (uniform in between), constant ``roi`` per granted good loan.
-    Returns ``(emp, emp_fraction)`` — expected profit per applicant and the
+    Returns ``(emp, emp_fraction)`` - expected profit per applicant and the
     fraction of applicants that would be rejected at the profit-optimal operation.
     """
     p0 = C.EMP_P0 if p0 is None else p0

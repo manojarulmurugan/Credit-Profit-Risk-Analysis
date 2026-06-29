@@ -1,7 +1,7 @@
 """Data loading and target definition for the Lending Club rebuild.
 
 Responsibilities:
-- Read only the columns we need (memory-friendly on the 1.19 GB file).
+- Read only the columns I need (memory-friendly on the 1.19 GB file).
 - Define the binary target (1 = Bad / default, 0 = Good / fully paid).
 - Drop unresolved loans (Current / Late / In Grace Period).
 - Provide a stratified sampler for fast iteration.

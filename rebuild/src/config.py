@@ -35,15 +35,15 @@ RANDOM_STATE = 42
 TEST_SIZE = 0.25  # 75/25 train/test split
 
 # Validation strategy. "oot" (headline): train on vintages through OOT_TRAIN_MAX_YEAR,
-# hold out a single future origination year (OOT_TEST_YEAR) — e.g. train ≤2014,
-# test 2015 — mirroring deployment on the next year's book. "oot_fraction" keeps
+# hold out a single future origination year (OOT_TEST_YEAR) - e.g. train ≤2014,
+# test 2015 - mirroring deployment on the next year's book. "oot_fraction" keeps
 # the newest OOT_TEST_FRACTION by issue date as an ablation. "random" is stratified.
 SPLIT_MODE = "oot"
 OOT_TRAIN_MAX_YEAR = 2014   # training vintages: issue_year <= this value
 OOT_TEST_YEAR = 2015        # OOT test vintage: issue_year == this value
 OOT_TEST_FRACTION = 0.25    # used only when split_mode == "oot_fraction"
 
-# The full resolved dataset is ~1.3M rows. For tractable iteration we develop on
+# The full resolved dataset is ~1.3M rows. For tractable iteration I develop on
 # a stratified sample; set to None to use everything. These can be overridden via
 # environment-style edits or function arguments.
 ZOO_SAMPLE = 20_000      # sample for the full slow model-zoo CV comparison
@@ -166,7 +166,7 @@ LEAKAGE_COLUMNS = [
     "hardship_payoff_balance_amount", "hardship_last_payment_amount",
 ] ]
 
-# Raw columns we must read from the CSV (keeps memory low vs. all 145 cols).
+# Raw columns I must read from the CSV (keeps memory low vs. all 145 cols).
 # "grade" is included for EDA/visualization only (NOT a model feature - the
 # allowlist in feature_columns() controls what reaches the model).
 RAW_USECOLS = sorted(set(

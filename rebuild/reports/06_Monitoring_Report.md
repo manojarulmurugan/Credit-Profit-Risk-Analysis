@@ -30,7 +30,7 @@ Reference bin edges are quantiles (each reference bin holds ~10% of mass); the c
 | 0.10 – 0.25 | Moderate shift | Investigate |
 | > 0.25 | Significant shift | Recalibrate / retrain |
 
-**Connection to the scorecard:** PSI is mathematically the same divergence as the Information Value (IV) used for feature selection in the profit-risk scorecard — IV computes it between good/bad outcomes, PSI computes it between two time windows. The same binning code powers both.
+**Connection to the scorecard:** PSI is mathematically the same divergence as the Information Value (IV) used for feature selection in the profit-risk scorecard - IV computes it between good/bad outcomes, PSI computes it between two time windows. The same binning code powers both.
 
 ---
 
@@ -44,15 +44,15 @@ Loans are split by issue vintage: the earliest issue years form the **reference*
 
 Each origination feature is scored and color-banded:
 
-- **Green (PSI < 0.10)** — stable, no action.
-- **Orange (0.10–0.25)** — moderate shift, investigate.
-- **Red (> 0.25)** — significant shift, candidate for recalibration.
+- **Green (PSI < 0.10)** - stable, no action.
+- **Orange (0.10–0.25)** - moderate shift, investigate.
+- **Red (> 0.25)** - significant shift, candidate for recalibration.
 
 Features tied to credit appetite and loan structure (utilization, loan amount, term mix) tend to drift most across vintages, reflecting Lending Club's evolving product and underwriting over time. The exact PSI values are regenerated into `reports/monitoring_psi.json` on each run.
 
 ---
 
-## 4. PD-Score PSI — The Direct Signal
+## 4. PD-Score PSI - The Direct Signal
 
 The most actionable single number is drift in the **PD score distribution** itself. Even when no individual feature looks alarming, a shift in the score distribution changes the approval mix and expected losses. Score PSI is computed by scoring both the reference and current populations with the deployed model and comparing the two PD distributions.
 
@@ -66,6 +66,6 @@ PSI converts "is the model still valid?" into an objective, scheduled check:
 
 - **Per-feature PSI** localizes the source of any drift.
 - **Score PSI** measures whether that drift actually moved the model's output.
-- Because PSI = IV mathematically, the monitoring reuses the scorecard machinery already built — a clean, auditable, low-overhead control.
+- Because PSI = IV mathematically, the monitoring reuses the scorecard machinery already built - a clean, auditable, low-overhead control.
 
 In production this would run monthly or quarterly, with PSI thresholds wired to automated alerts and a documented model-risk-management response (investigate -> recalibrate -> retrain).

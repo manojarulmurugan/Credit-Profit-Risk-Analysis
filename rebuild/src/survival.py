@@ -13,7 +13,7 @@ Approach (discrete-time survival, a.k.a. pooled logistic hazard):
 2. A logistic regression models the monthly hazard h(t) = P(default in month t |
    survived to t) from origination features plus a flexible function of loan age
    t (the baseline hazard).
-3. From h(t) we derive the survival curve S(t), the cumulative default
+3. From h(t) I derive the survival curve S(t), the cumulative default
    probability F(t) = 1 - S(t), 12-month PD = F(12), and lifetime PD = F(term).
 4. IFRS 9 staging (Stage 1/2/3) and ECL = sum_t marginal_PD(t) x LGD x EAD,
    discounted, give a 12-month vs lifetime loss-allowance comparison.
@@ -178,7 +178,7 @@ def assign_ifrs9_stage(pd_summary: pd.DataFrame, defaulted: pd.Series,
 
     A real IFRS 9 SICR test compares each loan's *current* lifetime PD to the PD
     expected at origination using behavioural re-measurement; with a single
-    snapshot we approximate that with a relative + absolute threshold and label
+    snapshot I approximate that with a relative + absolute threshold and label
     it as such.
     """
     median_lt = pd_summary["lifetime_pd"].median()

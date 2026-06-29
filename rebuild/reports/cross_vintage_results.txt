@@ -1,5 +1,5 @@
 ==========================================================================================
-CROSS-VINTAGE RESULTS  —  Full curves by vintage and variant
+CROSS-VINTAGE RESULTS  -  Full curves by vintage and variant
 Generated: all 6 runs complete + 2015 existing
 ==========================================================================================
 
@@ -157,7 +157,7 @@ Generated: all 6 runs complete + 2015 existing
 
 
 ==========================================================================================
-SUMMARY TABLE  —  profit_scoring at key budgets across all vintages
+SUMMARY TABLE  -  profit_scoring at key budgets across all vintages
 ==========================================================================================
   Vintage      Variant      @3%     @25%     @opt   opt budget   vs all @opt   vs grade @opt
   -------  -----------  -------  -------  -------  -----------  ------------  --------------
@@ -172,7 +172,7 @@ SUMMARY TABLE  —  profit_scoring at key budgets across all vintages
 
 
 ==========================================================================================
-SUMMARY TABLE  —  default_scoring at key budgets across all vintages
+SUMMARY TABLE  -  default_scoring at key budgets across all vintages
 ==========================================================================================
   Vintage      Variant      @3%     @25%     @opt   opt budget   vs all @opt   vs grade @opt
   -------  -----------  -------  -------  -------  -----------  ------------  --------------

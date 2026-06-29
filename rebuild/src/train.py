@@ -218,7 +218,7 @@ def return_model_zoo(X: pd.DataFrame, anr: pd.Series, include_grade: bool = Fals
 
     Primary metric: Spearman rank correlation between predicted and realized ANR.
     Spearman is correct here because the model is used as a *ranker* in the
-    portfolio backtest — ordinal correctness matters more than point accuracy.
+    portfolio backtest - ordinal correctness matters more than point accuracy.
     A fresh estimator is cloned for each fold to avoid state contamination.
     """
     from scipy.stats import spearmanr
@@ -487,7 +487,7 @@ def run_finalist_comparison(X_train, X_test, y_train, y_test,
             clf = XGBClassifier(eval_metric="logloss", n_jobs=-1,
                                 random_state=C.RANDOM_STATE, **best)
         elif clf_class is LogisticRegression:
-            # solver must be saga — supports both l1 and l2 penalties
+            # solver must be saga - supports both l1 and l2 penalties
             clf = LogisticRegression(solver="saga", max_iter=2000,
                                      random_state=C.RANDOM_STATE, **best)
         elif clf_class is LGBMClassifier:
@@ -637,7 +637,7 @@ def main(zoo_sample: int | None = None, train_sample: int | None = None,
             except ValueError:
                 continue
 
-    # Persist artifacts — suffix encodes both grade flag and test vintage
+    # Persist artifacts - suffix encodes both grade flag and test vintage
     _vintage_tag = f"_{test_year}" if test_year and test_year != C.OOT_TEST_YEAR else ""
     suffix = ("_with_grade" if include_grade else "") + _vintage_tag
     joblib.dump(model, C.MODELS_DIR / f"pd_model{suffix}.pkl")
@@ -690,9 +690,9 @@ def main(zoo_sample: int | None = None, train_sample: int | None = None,
         X_train_mat = X_train.loc[df_train_matured.index]
         anr_train = R.realized_anr(df_train_matured)
         print(f"      Matured training loans: {len(X_train_mat):,} / {len(X_train):,} "
-              f"({matured_train.mean():.1%}) — training on these only")
+              f"({matured_train.mean():.1%}) - training on these only")
 
-        # Step 1 — architecture selection
+        # Step 1 - architecture selection
         if return_arch:
             best_ret_arch = return_arch
             print(f"      Architecture forced: {_RETURN_DISPLAY.get(best_ret_arch, best_ret_arch)}")
@@ -706,7 +706,7 @@ def main(zoo_sample: int | None = None, train_sample: int | None = None,
         else:
             best_ret_arch = "lightgbm"
 
-        # Step 2 — Optuna tuning (skip for linear models; no meaningful search space)
+        # Step 2 - Optuna tuning (skip for linear models; no meaningful search space)
         if return_trials > 0 and best_ret_arch not in ("ridge", "elasticnet"):
             print(f"      Optuna tuning {_RETURN_DISPLAY.get(best_ret_arch, best_ret_arch)} "
                   f"({return_trials} trials) ...")
@@ -716,7 +716,7 @@ def main(zoo_sample: int | None = None, train_sample: int | None = None,
         else:
             ret_params = None
 
-        # Step 3 — final fit
+        # Step 3 - final fit
         return_model = fit_return_model(X_train_mat, anr_train,
                                         include_grade=include_grade,
                                         arch=best_ret_arch, params=ret_params)

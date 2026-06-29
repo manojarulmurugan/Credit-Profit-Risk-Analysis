@@ -32,7 +32,7 @@ from .profit import information_value, woe_iv  # noqa: F401
 
 
 # --------------------------------------------------------------------------- #
-# Maturity (calendar seasoning) — defines the honest backtest population
+# Maturity (calendar seasoning) - defines the honest backtest population
 # --------------------------------------------------------------------------- #
 def snapshot_date(df: pd.DataFrame, override=None) -> pd.Timestamp:
     """Data-snapshot date used to judge maturity.
@@ -55,7 +55,7 @@ def is_matured(df: pd.DataFrame, snapshot: pd.Timestamp | None = None) -> pd.Ser
 
     A loan's economic life is only trustworthy once ``issue_date + term_months``
     has passed (otherwise late recoveries / unseasoned 60-month loans distort the
-    realized P&L — the core of HANDOVER §5).
+    realized P&L - the core of HANDOVER §5).
     """
     snap = snapshot or snapshot_date(df)
     issue_period = df["issue_date"].dt.year * 12 + df["issue_date"].dt.month
@@ -93,12 +93,12 @@ def return_curve(df: pd.DataFrame, score_col: str, ascending: bool,
     """Sweep the invested fraction; report realized portfolio return at each level.
 
     Loans are ranked by ``score_col`` (``ascending=True`` invests in the lowest
-    scores first — e.g. lowest PD or lowest rate; ``False`` invests in the highest
-    first — e.g. highest predicted ANR). For each budget fraction we "invest" in
+    scores first - e.g. lowest PD or lowest rate; ``False`` invests in the highest
+    first - e.g. highest predicted ANR). For each budget fraction I "invest" in
     the top slice and report:
 
     - ``port_anr``  : capital-weighted realized annualized return (what an
-                      investor actually earns) — sum(ANR*funded)/sum(funded)
+                      investor actually earns) - sum(ANR*funded)/sum(funded)
     - ``avg_anr``   : equal-weighted mean realized ANR
     - ``total_dollar_return`` : realized profit dollars (total_pymnt - funded)
     - ``default_rate_invested`` : realized default rate of the invested slice
@@ -138,7 +138,7 @@ def optimal_fraction(curve: pd.DataFrame) -> dict:
     return best.to_dict()
 
 
-# Ranking policies shared with portfolio.py. (column, ascending) — ascending=True
+# Ranking policies shared with portfolio.py. (column, ascending) - ascending=True
 # means "invest in the lowest score first".
 POLICIES = {
     "invest_all": (None, None),

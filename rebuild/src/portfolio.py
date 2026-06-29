@@ -1,13 +1,13 @@
 """Portfolio-selection backtest: default scoring vs profit scoring vs grade.
 
 This is the headline experiment of the return arm. On the same out-of-time
-hold-out used everywhere else, we compare four *investor* policies that each rank
+hold-out used everywhere else, I compare four *investor* policies that each rank
 the candidate loans and invest in the top slice under a budget:
 
-    invest_all       — the baseline (buy the whole book)
-    default_scoring  — rank by the PD model (lowest default risk first)
-    profit_scoring   — rank by the predicted ANR (highest return first)
-    grade_only       — rank by LendingClub's own int_rate (safest first)
+    invest_all       - the baseline (buy the whole book)
+    default_scoring  - rank by the PD model (lowest default risk first)
+    profit_scoring   - rank by the predicted ANR (highest return first)
+    grade_only       - rank by LendingClub's own int_rate (safest first)
 
 and measure the **realized annualized portfolio return** each one earns. The
 literature (Serrano-Cinca 2016; "How can lenders prosper", 2021) predicts profit
@@ -15,8 +15,8 @@ scoring should win, because the drivers of default differ from the drivers of
 return.
 
 Maturity (HANDOVER §5) is handled honestly:
-    PRIMARY    — realized ANR on loans whose term has fully run (seasoned book).
-    ROBUSTNESS — a survival-adjusted *expected* ANR for the unmatured loans
+    PRIMARY    - realized ANR on loans whose term has fully run (seasoned book).
+    ROBUSTNESS - a survival-adjusted *expected* ANR for the unmatured loans
                  (reusing the discrete-time hazard model), folded back in so the
                  comparison can use the whole cohort without trusting immature
                  realized cash.
