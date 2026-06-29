@@ -16,5 +16,12 @@ rebuild/data/processed/
 rebuild/models/*.pkl
 rebuild/models/*.json
 
+# Demo scorer models — tracked via Git LFS for Streamlit Cloud
+!rebuild/models/pd_model.pkl
+!rebuild/models/lgd_model.pkl
+!rebuild/models/return_model.pkl
+!rebuild/models/economics.json
+
+
 # Legacy capstone artifacts (165 MB of pickled models; kept locally, untracked)
 legacy_capstone/models/*.pkl

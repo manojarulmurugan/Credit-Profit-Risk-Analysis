@@ -1,0 +1,2 @@
+rebuild/models/*.pkl filter=lfs diff=lfs merge=lfs -text
+rebuild/models/*.json filter=lfs diff=lfs merge=lfs -text

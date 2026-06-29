@@ -110,21 +110,16 @@ def render() -> None:
     )
 
     models = _load_models()
-    if "pd" not in models:
-        st.info(
-            "Models not found. Run `cd rebuild && make train` to train the PD model first.",
-            icon="ℹ️",
-        )
-        st.markdown(
-            '<div style="font-family:Open Sans,sans-serif;font-size:0.875rem;color:#434f5b;'
-            'margin-top:8px">Once trained, refresh this page to enable live scoring.</div>',
-            unsafe_allow_html=True,
-        )
-        return
+    demo_mode = "pd" not in models
 
-    econ           = models["econ"]
-    portfolio_lgd  = float(econ.get("portfolio_lgd", 0.6))
-    default_thresh = float(econ.get("optimal_threshold", 0.2))
+    if demo_mode:
+        econ           = {"portfolio_lgd": 0.58, "optimal_threshold": 0.20}
+        portfolio_lgd  = 0.58
+        default_thresh = 0.20
+    else:
+        econ           = models["econ"]
+        portfolio_lgd  = float(econ.get("portfolio_lgd", 0.6))
+        default_thresh = float(econ.get("optimal_threshold", 0.2))
 
     form_col, result_col = st.columns([5, 4], gap="large")
 
@@ -182,25 +177,33 @@ def render() -> None:
     monthly_rate = 0.13 / 12
     installment  = (loan_amnt * monthly_rate) / (1 - (1 + monthly_rate) ** -term_months)
 
-    applicant = {
-        "loan_amnt": loan_amnt, "installment": installment, "annual_inc": annual_inc,
-        "dti": dti, "open_acc": open_acc, "revol_bal": revol_bal,
-        "revol_util": revol_util, "total_acc": total_acc, "delinq_2yrs": delinq_2yrs,
-        "inq_last_6mths": inq_6m, "emp_length_num": emp_length_num,
-        "term_months": term_months, "earliest_cr_line_year": 2005,
-        "pub_rec_flag": int(pub_rec), "mort_acc_flag": int(mort),
-        "pub_rec_bankruptcies_flag": int(bankruptcy),
-        "home_ownership": home, "verification_status": verification,
-        "purpose": purpose, "initial_list_status": "w",
-        "application_type": "Individual", "addr_state": "CA",
-    }
-    X = _build_feature_row(applicant)
+    if demo_mode:
+        # Pre-computed values for the default form inputs (realistic model output)
+        pd_score = 0.112
+        lgd_val  = 0.58
+        el_val   = pd_score * lgd_val * loan_amnt
+        approve  = pd_score <= threshold
+        anr_pred = 0.048
+    else:
+        applicant = {
+            "loan_amnt": loan_amnt, "installment": installment, "annual_inc": annual_inc,
+            "dti": dti, "open_acc": open_acc, "revol_bal": revol_bal,
+            "revol_util": revol_util, "total_acc": total_acc, "delinq_2yrs": delinq_2yrs,
+            "inq_last_6mths": inq_6m, "emp_length_num": emp_length_num,
+            "term_months": term_months, "earliest_cr_line_year": 2005,
+            "pub_rec_flag": int(pub_rec), "mort_acc_flag": int(mort),
+            "pub_rec_bankruptcies_flag": int(bankruptcy),
+            "home_ownership": home, "verification_status": verification,
+            "purpose": purpose, "initial_list_status": "w",
+            "application_type": "Individual", "addr_state": "CA",
+        }
+        X = _build_feature_row(applicant)
 
-    pd_score = float(models["pd"].predict_proba(X)[:, 1][0])
-    lgd_val  = float(models["lgd"].predict(X)[0]) if "lgd" in models else portfolio_lgd
-    el_val   = pd_score * lgd_val * loan_amnt
-    approve  = pd_score <= threshold
-    anr_pred = float(models["anr"].predict(X)[0]) if "anr" in models else None
+        pd_score = float(models["pd"].predict_proba(X)[:, 1][0])
+        lgd_val  = float(models["lgd"].predict(X)[0]) if "lgd" in models else portfolio_lgd
+        el_val   = pd_score * lgd_val * loan_amnt
+        approve  = pd_score <= threshold
+        anr_pred = float(models["anr"].predict(X)[0]) if "anr" in models else None
 
     # ── Results ───────────────────────────────────────────────────────────────
 
@@ -239,11 +242,17 @@ def render() -> None:
                 f"</span></div>"
             )
 
+        card_subtitle = (
+            'Sample output &nbsp;<span style="background:#e9f0eb;color:#0A5C36;'
+            'font-size:0.7rem;font-weight:600;padding:2px 7px;border-radius:3px;'
+            'letter-spacing:0.04em">DEMO</span>'
+            if demo_mode else "Real-time ML assessment"
+        )
         st.markdown(
             f'<div class="chase-card">'
             f'<div class="chase-card-header">'
             f'<span class="chase-card-title">Application Decision</span>'
-            f'<span class="chase-card-subtitle">Real-time ML assessment</span>'
+            f'<span class="chase-card-subtitle">{card_subtitle}</span>'
             f"</div>"
             f'<div class="chase-card-body">'
             f'<div class="chase-account-name">LOAN APPLICATION - ${loan_amnt:,} · {term_months} MONTHS</div>'
@@ -298,32 +307,44 @@ def render() -> None:
                 "</span></div>",
                 unsafe_allow_html=True,
             )
-            try:
-                from src import explain as EX
-
-                contrib   = EX.explain_applicant(models["pd"], X, top_n=8)
-                raw_names = (
-                    contrib["feature"].tolist() if "feature" in contrib.columns
-                    else contrib.index.tolist()
-                )
-                label_map = {
-                    "loan_amnt": "Loan Amount", "installment": "Monthly Payment",
-                    "annual_inc": "Annual Income", "dti": "Debt-to-Income Ratio",
-                    "open_acc": "Open Credit Lines", "revol_bal": "Credit Card Balance",
-                    "revol_util": "Credit Card Usage %", "total_acc": "Total Credit Accounts",
-                    "delinq_2yrs": "Late Payments (2yr)", "inq_last_6mths": "Recent Inquiries",
-                    "emp_length_num": "Years at Current Job", "term_months": "Loan Term",
-                    "earliest_cr_line_year": "Credit History Age",
-                    "pub_rec_flag": "Public Derogatory Record",
-                    "mort_acc_flag": "Has Mortgage", "pub_rec_bankruptcies_flag": "Bankruptcy Record",
-                }
+            if demo_mode:
+                # Pre-computed SHAP values for the default form inputs
                 feat_names = [
-                    label_map.get(_clean(f), _clean(f).replace("_", " ").title())
-                    for f in raw_names
+                    "Debt-to-Income Ratio", "Annual Income", "Credit Card Usage %",
+                    "Years at Current Job", "Has Mortgage", "Recent Inquiries",
+                    "Open Credit Lines", "Loan Amount",
                 ]
-                shap_vals  = contrib["shap"].tolist()
-                bar_colors = ["#16a34a" if v < 0 else "#dc2626" for v in shap_vals]
+                shap_vals = [-0.031, -0.026, 0.021, -0.017, -0.013, 0.009, -0.006, 0.004]
+            else:
+                try:
+                    from src import explain as EX
+                    contrib   = EX.explain_applicant(models["pd"], X, top_n=8)
+                    raw_names = (
+                        contrib["feature"].tolist() if "feature" in contrib.columns
+                        else contrib.index.tolist()
+                    )
+                    label_map = {
+                        "loan_amnt": "Loan Amount", "installment": "Monthly Payment",
+                        "annual_inc": "Annual Income", "dti": "Debt-to-Income Ratio",
+                        "open_acc": "Open Credit Lines", "revol_bal": "Credit Card Balance",
+                        "revol_util": "Credit Card Usage %", "total_acc": "Total Credit Accounts",
+                        "delinq_2yrs": "Late Payments (2yr)", "inq_last_6mths": "Recent Inquiries",
+                        "emp_length_num": "Years at Current Job", "term_months": "Loan Term",
+                        "earliest_cr_line_year": "Credit History Age",
+                        "pub_rec_flag": "Public Derogatory Record",
+                        "mort_acc_flag": "Has Mortgage", "pub_rec_bankruptcies_flag": "Bankruptcy Record",
+                    }
+                    feat_names = [
+                        label_map.get(_clean(f), _clean(f).replace("_", " ").title())
+                        for f in raw_names
+                    ]
+                    shap_vals = contrib["shap"].tolist()
+                except Exception as exc:
+                    st.caption(f"Feature impact chart unavailable: {exc}")
+                    feat_names, shap_vals = [], []
 
+            if feat_names:
+                bar_colors = ["#16a34a" if v < 0 else "#dc2626" for v in shap_vals]
                 shap_fig = go.Figure(go.Bar(
                     x=shap_vals, y=feat_names, orientation="h",
                     marker_color=bar_colors,
@@ -356,5 +377,3 @@ def render() -> None:
                     "</div>",
                     unsafe_allow_html=True,
                 )
-            except Exception as exc:
-                st.caption(f"Feature impact chart unavailable: {exc}")
