@@ -4,6 +4,8 @@
 
 Yes — by a margin of **200–460 basis points in annualized portfolio return**, validated across four independent test cohorts (2012–2015).
 
+**[Live demo →](https://loan-alpha.streamlit.app/)**
+
 ---
 
 ## The Core Insight
