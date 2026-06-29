@@ -1,0 +1,15 @@
+{
+  "score_psi": 0.015187368443001748,
+  "score_psi_band": "stable",
+  "feature_psi": {
+    "dti": 0.1661,
+    "open_acc": 0.0974,
+    "inq_last_6mths": 0.0686,
+    "loan_amnt": 0.0676,
+    "revol_util": 0.0514,
+    "emp_length_num": 0.0457,
+    "annual_inc": 0.0446,
+    "total_acc": 0.0363,
+    "term_months": 0.0037
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "invest_all": {
+    "port_anr": 0.02123105721661963
+  },
+  "default_scoring": {
+    "port_anr_at_50pct": 0.03468144804057422,
+    "default_rate_at_50pct": 0.08095215770844565,
+    "opt_fraction": 0.00999748011931342,
+    "opt_total_dollar_return": 1588585.2838326176
+  },
+  "profit_scoring": {
+    "port_anr_at_50pct": 0.03607001424025325,
+    "default_rate_at_50pct": 0.10401772110358407,
+    "opt_fraction": 0.00999748011931342,
+    "opt_total_dollar_return": 2322101.723189868
+  },
+  "grade_only": {
+    "port_anr_at_50pct": 0.030672270461738798,
+    "default_rate_at_50pct": 0.08471437612807951,
+    "opt_fraction": 0.4800021096675516,
+    "opt_total_dollar_return": 95791693.25026694
+  }
+}

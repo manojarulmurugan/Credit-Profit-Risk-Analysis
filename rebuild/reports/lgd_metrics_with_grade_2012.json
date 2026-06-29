@@ -1,0 +1,9 @@
+{
+  "n_defaults": 8644,
+  "mae": 0.20542794469753342,
+  "rmse": 0.2490407292683866,
+  "mean_realized_lgd": 0.5617602749567943,
+  "mean_predicted_lgd": 0.5790415517192221,
+  "train_portfolio_lgd": 0.5881887649955084,
+  "portfolio_constant_mae": 0.20758207051488925
+}

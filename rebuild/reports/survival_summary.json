@@ -1,0 +1,13 @@
+{
+  "mean_pd_12m": 0.06962968216753886,
+  "mean_lifetime_pd": 0.2935046383322476,
+  "stage_counts": {
+    "1": 3658,
+    "2": 51,
+    "3": 1291
+  },
+  "total_ecl_12m": 2844171.1485680314,
+  "total_ecl_lifetime": 10160161.75552492,
+  "total_staged_allowance": 5385778.154557198,
+  "portfolio_lgd": 0.5819074314450955
+}

@@ -1,0 +1,186 @@
+==========================================================================================
+CROSS-VINTAGE RESULTS  —  Full curves by vintage and variant
+Generated: all 6 runs complete + 2015 existing
+==========================================================================================
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2012 Variant-A Grade-Blind]  test_year=2012  matured_loans=53,367  capital=$718M  invest_all_ANR=+1.12%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +1.12%      +1.74%       +4.06%      +6.54%        +247bp           +480bp         +542bp
+      3%      +1.12%      +1.90%       +4.02%      +6.09%        +206bp           +418bp         +497bp
+      5%      +1.12%      +1.87%       +3.69%      +5.18%        +149bp           +331bp         +406bp
+     10%      +1.12%      +1.84%       +3.58%      +4.46%         +88bp           +262bp         +335bp
+     15%      +1.12%      +1.67%       +3.51%      +4.39%         +89bp           +273bp         +328bp
+     25%      +1.12%      +1.65%       +3.31%      +4.06%         +75bp           +241bp         +294bp
+     50%      +1.12%      +1.72%       +3.08%      +3.37%         +29bp           +166bp         +226bp
+     75%      +1.12%      +1.68%       +2.40%      +2.60%         +19bp            +92bp         +148bp
+
+  Optimal profit_scoring        budget=2%  port_ANR=+6.56%  vs_all=+544bp  n_loans=1,067
+  Optimal default_scoring       budget=1%  port_ANR=+4.06%  vs_all=+295bp  n_loans=534
+  Optimal grade_only            budget=2%  port_ANR=+1.97%  vs_all=+86bp  n_loans=1,067
+  invest_all baseline:                    port_ANR=+1.12%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2012 Variant-B Grade-Aware]  test_year=2012  matured_loans=53,367  capital=$718M  invest_all_ANR=+1.12%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +1.12%      +1.74%       +3.43%      +6.55%        +312bp           +481bp         +543bp
+      3%      +1.12%      +1.90%       +2.95%      +5.42%        +247bp           +352bp         +430bp
+      5%      +1.12%      +1.87%       +3.08%      +4.91%        +183bp           +303bp         +379bp
+     10%      +1.12%      +1.84%       +3.17%      +4.36%        +119bp           +251bp         +324bp
+     15%      +1.12%      +1.67%       +3.04%      +4.10%        +106bp           +243bp         +298bp
+     25%      +1.12%      +1.65%       +3.01%      +4.07%        +106bp           +242bp         +295bp
+     50%      +1.12%      +1.72%       +2.89%      +3.38%         +49bp           +166bp         +226bp
+     75%      +1.12%      +1.68%       +2.40%      +2.58%         +17bp            +90bp         +146bp
+
+  Optimal profit_scoring        budget=1%  port_ANR=+6.55%  vs_all=+543bp  n_loans=534
+  Optimal default_scoring       budget=1%  port_ANR=+3.43%  vs_all=+231bp  n_loans=534
+  Optimal grade_only            budget=2%  port_ANR=+1.97%  vs_all=+86bp  n_loans=1,067
+  invest_all baseline:                    port_ANR=+1.12%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2013 Variant-A Grade-Blind]  test_year=2013  matured_loans=134,793  capital=$1982M  invest_all_ANR=+2.58%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +2.58%      +2.96%       +4.04%      +5.32%        +128bp           +236bp         +274bp
+      3%      +2.58%      +3.03%       +4.36%      +5.08%         +72bp           +205bp         +250bp
+      5%      +2.58%      +3.09%       +4.37%      +5.10%         +73bp           +201bp         +252bp
+     10%      +2.58%      +3.18%       +4.46%      +4.92%         +46bp           +174bp         +234bp
+     15%      +2.58%      +3.27%       +4.31%      +4.76%         +45bp           +150bp         +218bp
+     25%      +2.58%      +3.36%       +4.34%      +4.55%         +21bp           +119bp         +197bp
+     50%      +2.58%      +3.43%       +4.06%      +4.14%          +8bp            +70bp         +156bp
+     75%      +2.58%      +3.23%       +3.59%      +3.59%          -1bp            +35bp         +101bp
+
+  Optimal profit_scoring        budget=1%  port_ANR=+5.32%  vs_all=+274bp  n_loans=1,348
+  Optimal default_scoring       budget=7%  port_ANR=+4.47%  vs_all=+189bp  n_loans=9,436
+  Optimal grade_only            budget=31%  port_ANR=+3.49%  vs_all=+91bp  n_loans=41,786
+  invest_all baseline:                    port_ANR=+2.58%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2013 Variant-B Grade-Aware]  test_year=2013  matured_loans=134,793  capital=$1982M  invest_all_ANR=+2.58%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +2.58%      +2.96%       +3.46%      +6.12%        +266bp           +317bp         +355bp
+      3%      +2.58%      +3.03%       +3.53%      +5.61%        +208bp           +258bp         +303bp
+      5%      +2.58%      +3.09%       +3.65%      +5.35%        +170bp           +226bp         +277bp
+     10%      +2.58%      +3.18%       +3.88%      +5.12%        +124bp           +195bp         +254bp
+     15%      +2.58%      +3.27%       +4.07%      +4.89%         +82bp           +162bp         +231bp
+     25%      +2.58%      +3.36%       +4.19%      +4.58%         +39bp           +122bp         +200bp
+     50%      +2.58%      +3.43%       +4.01%      +4.12%         +11bp            +68bp         +154bp
+     75%      +2.58%      +3.23%       +3.59%      +3.58%          -1bp            +34bp         +100bp
+
+  Optimal profit_scoring        budget=1%  port_ANR=+6.12%  vs_all=+355bp  n_loans=1,348
+  Optimal default_scoring       budget=30%  port_ANR=+4.24%  vs_all=+166bp  n_loans=40,438
+  Optimal grade_only            budget=31%  port_ANR=+3.49%  vs_all=+91bp  n_loans=41,786
+  invest_all baseline:                    port_ANR=+2.58%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2014 Variant-A Grade-Blind]  test_year=2014  matured_loans=170,643  capital=$2203M  invest_all_ANR=+2.12%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +2.12%      +2.99%       +4.39%      +5.22%         +83bp           +223bp         +310bp
+      3%      +2.12%      +3.01%       +4.15%      +5.03%         +88bp           +201bp         +291bp
+      5%      +2.12%      +2.80%       +4.07%      +4.79%         +72bp           +199bp         +267bp
+     10%      +2.12%      +3.02%       +3.95%      +4.70%         +75bp           +169bp         +258bp
+     15%      +2.12%      +2.99%       +3.90%      +4.44%         +55bp           +145bp         +232bp
+     25%      +2.12%      +2.97%       +3.78%      +4.16%         +37bp           +119bp         +203bp
+     50%      +2.12%      +3.07%       +3.52%      +3.67%         +15bp            +60bp         +154bp
+     75%      +2.12%      +2.75%       +3.01%      +3.02%          +1bp            +27bp          +90bp
+
+  Optimal profit_scoring        budget=1%  port_ANR=+5.22%  vs_all=+310bp  n_loans=1,706
+  Optimal default_scoring       budget=1%  port_ANR=+4.39%  vs_all=+227bp  n_loans=1,706
+  Optimal grade_only            budget=48%  port_ANR=+3.08%  vs_all=+96bp  n_loans=81,909
+  invest_all baseline:                    port_ANR=+2.12%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2014 Variant-B Grade-Aware]  test_year=2014  matured_loans=170,643  capital=$2203M  invest_all_ANR=+2.12%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +2.12%      +2.99%       +3.73%      +6.54%        +282bp           +355bp         +442bp
+      3%      +2.12%      +3.01%       +3.44%      +5.50%        +206bp           +249bp         +338bp
+      5%      +2.12%      +2.80%       +3.34%      +5.40%        +206bp           +260bp         +327bp
+     10%      +2.12%      +3.02%       +3.37%      +4.90%        +153bp           +188bp         +277bp
+     15%      +2.12%      +2.99%       +3.47%      +4.61%        +114bp           +162bp         +249bp
+     25%      +2.12%      +2.97%       +3.55%      +4.12%         +57bp           +115bp         +200bp
+     50%      +2.12%      +3.07%       +3.47%      +3.61%         +14bp            +54bp         +148bp
+     75%      +2.12%      +2.75%       +3.06%      +3.03%          -4bp            +27bp          +90bp
+
+  Optimal profit_scoring        budget=1%  port_ANR=+6.54%  vs_all=+442bp  n_loans=1,706
+  Optimal default_scoring       budget=1%  port_ANR=+3.73%  vs_all=+160bp  n_loans=1,706
+  Optimal grade_only            budget=48%  port_ANR=+3.08%  vs_all=+96bp  n_loans=81,909
+  invest_all baseline:                    port_ANR=+2.12%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2015 Variant-A Grade-Blind]  test_year=2015  matured_loans=282,853  capital=$3622M  invest_all_ANR=+0.56%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +0.56%      +2.35%       +3.72%      +4.21%         +49bp           +186bp         +365bp
+      3%      +0.56%      +2.42%       +3.55%      +4.46%         +91bp           +204bp         +390bp
+      5%      +0.56%      +2.59%       +3.55%      +4.09%         +54bp           +150bp         +352bp
+     10%      +0.56%      +2.56%       +3.38%      +3.57%         +19bp           +101bp         +301bp
+     15%      +0.56%      +2.55%       +3.21%      +3.29%          +8bp            +74bp         +273bp
+     25%      +0.56%      +2.44%       +3.00%      +3.04%          +4bp            +60bp         +248bp
+     50%      +0.56%      +2.17%       +2.38%      +2.36%          -1bp            +19bp         +180bp
+     75%      +0.56%      +1.63%       +1.64%      +1.62%          -2bp             -1bp         +106bp
+
+  Optimal profit_scoring        budget=3%  port_ANR=+4.46%  vs_all=+390bp  n_loans=8,486
+  Optimal default_scoring       budget=1%  port_ANR=+3.72%  vs_all=+316bp  n_loans=2,829
+  Optimal grade_only            budget=5%  port_ANR=+2.59%  vs_all=+203bp  n_loans=14,143
+  invest_all baseline:                    port_ANR=+0.56%
+
+──────────────────────────────────────────────────────────────────────────────────────────
+[2015 Variant-B Grade-Aware]  test_year=2015  matured_loans=282,853  capital=$3622M  invest_all_ANR=+0.56%
+──────────────────────────────────────────────────────────────────────────────────────────
+   Budget   invest_all   grade_only   default_scr   profit_scr   ps-ds (bp)   ps-grade (bp)   ps-all (bp)
+  -------  -----------  -----------  ------------  -----------  -----------  --------------  ------------
+      1%      +0.56%      +2.35%       +3.17%      +4.05%         +88bp           +170bp         +349bp
+      3%      +0.56%      +2.42%       +3.16%      +4.43%        +127bp           +201bp         +386bp
+      5%      +0.56%      +2.59%       +3.03%      +3.80%         +77bp           +121bp         +324bp
+     10%      +0.56%      +2.56%       +3.00%      +3.25%         +25bp            +69bp         +269bp
+     15%      +0.56%      +2.55%       +2.92%      +3.09%         +17bp            +54bp         +253bp
+     25%      +0.56%      +2.44%       +2.77%      +2.92%         +14bp            +48bp         +235bp
+     50%      +0.56%      +2.17%       +2.50%      +2.28%         -21bp            +11bp         +172bp
+     75%      +0.56%      +1.63%       +1.88%      +1.68%         -20bp             +5bp         +111bp
+
+  Optimal profit_scoring        budget=2%  port_ANR=+4.48%  vs_all=+391bp  n_loans=5,657
+  Optimal default_scoring       budget=1%  port_ANR=+3.17%  vs_all=+261bp  n_loans=2,829
+  Optimal grade_only            budget=5%  port_ANR=+2.59%  vs_all=+203bp  n_loans=14,143
+  invest_all baseline:                    port_ANR=+0.56%
+
+
+==========================================================================================
+SUMMARY TABLE  —  profit_scoring at key budgets across all vintages
+==========================================================================================
+  Vintage      Variant      @3%     @25%     @opt   opt budget   vs all @opt   vs grade @opt
+  -------  -----------  -------  -------  -------  -----------  ------------  --------------
+     2012  Grade-Blind  +6.09%  +4.06%  +6.56%          2%         +544bp           +459bp
+     2012  Grade-Aware  +5.42%  +4.07%  +6.55%          1%         +543bp           +481bp
+     2013  Grade-Blind  +5.08%  +4.55%  +5.32%          1%         +274bp           +236bp
+     2013  Grade-Aware  +5.61%  +4.58%  +6.12%          1%         +355bp           +317bp
+     2014  Grade-Blind  +5.03%  +4.16%  +5.22%          1%         +310bp           +223bp
+     2014  Grade-Aware  +5.50%  +4.12%  +6.54%          1%         +442bp           +355bp
+     2015  Grade-Blind  +4.46%  +3.04%  +4.46%          3%         +390bp           +204bp
+     2015  Grade-Aware  +4.43%  +2.92%  +4.48%          2%         +391bp           +209bp
+
+
+==========================================================================================
+SUMMARY TABLE  —  default_scoring at key budgets across all vintages
+==========================================================================================
+  Vintage      Variant      @3%     @25%     @opt   opt budget   vs all @opt   vs grade @opt
+  -------  -----------  -------  -------  -------  -----------  ------------  --------------
+     2012  Grade-Blind  +4.02%  +3.31%  +4.06%          1%         +295bp           +233bp
+     2012  Grade-Aware  +2.95%  +3.01%  +3.43%          1%         +231bp           +170bp
+     2013  Grade-Blind  +4.36%  +4.34%  +4.47%          7%         +189bp           +126bp
+     2013  Grade-Aware  +3.53%  +4.19%  +4.24%         30%         +166bp            +79bp
+     2014  Grade-Blind  +4.15%  +3.78%  +4.39%          1%         +227bp           +140bp
+     2014  Grade-Aware  +3.44%  +3.55%  +3.73%          1%         +160bp            +74bp
+     2015  Grade-Blind  +3.55%  +3.00%  +3.72%          1%         +316bp           +137bp
+     2015  Grade-Aware  +3.16%  +2.77%  +3.17%          1%         +261bp            +82bp

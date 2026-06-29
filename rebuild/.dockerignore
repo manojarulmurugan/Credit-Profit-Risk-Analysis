@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+notebooks/
+data/
+reports/figures/
+*.parquet
+*.csv
+tests/
+.pytest_cache/
+.git/
+.DS_Store
