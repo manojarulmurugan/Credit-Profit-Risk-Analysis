@@ -2,7 +2,7 @@
 
 **Can a machine-learning model beat LendingClub's own loan grading when selecting a portfolio of personal loans?**
 
-Yes — by a margin of **200–460 basis points in annualized portfolio return**, validated across four independent test cohorts (2012–2015).
+Yes, by a margin of **200–460 basis points in annualized portfolio return**, validated across four independent test cohorts (2012–2015).
 
 **[Live demo →](https://loan-alpha.streamlit.app/)**
 
@@ -10,9 +10,9 @@ Yes — by a margin of **200–460 basis points in annualized portfolio return**
 
 ## The Core Insight
 
-Standard credit risk models on LendingClub data hit a structural ceiling: LC *already* prices default risk into the interest rate, so a model that only approves or rejects loans adds almost nothing (optimal approval rate ≈ 99%). The problem isn't the model — it's the framing.
+Standard credit risk models on LendingClub data hit a structural ceiling: LC *already* prices default risk into the interest rate, so a model that only approves or rejects loans adds almost nothing (optimal approval rate ≈ 99%). The problem isn't the model, it's the framing.
 
-This project reframes the task the way the credit-risk literature does for peer-to-peer lending: instead of **lender accept/reject**, model it as **investor portfolio selection**. Rank all available loans by predicted *annualized net return* (not predicted default), invest in the top fraction, and measure realized portfolio return. The profit-scoring model consistently beats LC's grade ordering because it identifies which loans over-compensate for their actual risk — not just which ones are safest.
+This project reframes the task the way the credit-risk literature does for peer-to-peer lending: instead of **lender accept/reject**, model it as **investor portfolio selection**. Rank all available loans by predicted *annualized net return* (not predicted default), invest in the top fraction, and measure realized portfolio return. The profit-scoring model consistently beats LC's grade ordering because it identifies which loans over-compensate for their actual risk, not just which ones are safest.
 
 > *Literature backing: Serrano-Cinca & Gutiérrez-Nieto, EJOR 2016; Bastani et al., EJOR 2021*
 
@@ -20,7 +20,7 @@ This project reframes the task the way the credit-risk literature does for peer-
 
 ## Results
 
-Profit scoring (ANR model) vs LC grade-only ordering — out-of-time backtest, full data, matured loans only:
+Profit scoring (ANR model) vs LC grade-only ordering —-> out-of-time backtest, full data, matured loans only:
 
 | Test Vintage | Capital | Matured | Profit Scoring @3% | vs LC Grade | vs Invest-All |
 |---|---|---|---|---|---|
@@ -30,10 +30,10 @@ Profit scoring (ANR model) vs LC grade-only ordering — out-of-time backtest, f
 | 2015 (train: 2007–2014) | $3,622M | 75% | +4.46% | **+204 bp** | +390 bp |
 
 - Advantage holds at every budget level (1%–75%) in every vintage
-- 2012 and 2013 vintages are 100% matured — exact realized cashflows, no survival estimates
+- 2012 and 2013 vintages are 100% matured —-> exact realized cashflows, no survival estimates
 - Default scoring (PD model alone) beats LC grade by ~130 bp; profit scoring adds another ~80–300 bp on top
 
-### Return Curves — All 4 Vintages
+### Return Curves: All 4 Vintages
 
 Each panel is a fully independent out-of-time backtest. The shaded region shows where profit scoring beats LC grade.
 
